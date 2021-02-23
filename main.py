@@ -10,19 +10,24 @@ class Game:
 
         """
         set the screen for display
-        set_mode get the size 
-        set_caption get the name
+        set_mode create window
+        set_caption add the name
+        screen.fill set the bg color
         """
         self.screen = pygame.display.set_mode((800, 600))
+        self.bg_color = (222, 219, 210)
+        self.screen.fill(self.bg_color)
         pygame.display.set_caption('Aliens Invasion')
 
     def run_game(self):
         while True:
             # keyboard and mouse event
             for event in pygame.event.get():
+                # to close the game
                 if event.type == pygame.QUIT:
                     sys.exit()
 
+            # update all screen
             pygame.display.flip()
 
 
