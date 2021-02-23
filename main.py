@@ -1,9 +1,11 @@
 import sys
 import pygame
+
 from Settings import Settings
+from player.Ship import Ship
 
 
-class Game:
+class AlienInvasion:
 
     def __init__(self):
         # initialize and create game resource
@@ -20,19 +22,26 @@ class Game:
         self.screen.fill(self.settings.bg_color)
         pygame.display.set_caption('Aliens Invasion')
 
+        # initialize player ship
+        self.ship = Ship(self)
+
+    def events(self):
+        # keyboard and mouse event
+        for event in pygame.event.get():
+            # to close the game
+            if event.type == pygame.QUIT:
+                sys.exit()
+
     def run_game(self):
         while True:
-            # keyboard and mouse event
-            for event in pygame.event.get():
-                # to close the game
-                if event.type == pygame.QUIT:
-                    sys.exit()
-
+            # display player
+            self.ship.blitme()
+            self.events()
             # update all screen
             pygame.display.flip()
 
 
 if __name__ == '__main__':
     # launch game
-    game = Game()
+    game = AlienInvasion()
     game.run_game()
