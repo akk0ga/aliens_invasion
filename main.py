@@ -19,7 +19,6 @@ class AlienInvasion:
         screen.fill set the bg color
         """
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
-        self.screen.fill(self.settings.bg_color)
         pygame.display.set_caption('Aliens Invasion')
 
         # initialize player ship
@@ -32,13 +31,17 @@ class AlienInvasion:
             if event.type == pygame.QUIT:
                 sys.exit()
 
+    def update(self):
+        self.screen.fill(self.settings.bg_color)
+        # display player
+        self.ship.blitme()
+        # update all screen
+        pygame.display.flip()
+
     def run_game(self):
         while True:
-            # display player
-            self.ship.blitme()
             self.events()
-            # update all screen
-            pygame.display.flip()
+            self.update()
 
 
 if __name__ == '__main__':
