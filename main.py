@@ -22,26 +22,38 @@ class AlienInvasion:
         pygame.display.set_caption('Aliens Invasion')
 
         # initialize player ship
-        self.ship = Ship(self)
+        self.ship = Ship(self, self.settings)
 
     def events(self):
         # keyboard and mouse event
         for event in pygame.event.get():
-            # to close the game
+            # close the game
             if event.type == pygame.QUIT:
                 sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    # move ship right
+                    self.ship.move_right = True
+                elif event.key == pygame.K_LEFT:
+                    self.ship.move_left = True
+            else:
+                self.ship.move_right = False
+                self.ship.move_left = False
 
-    def update(self):
+
+    def update_screen(self):
         self.screen.fill(self.settings.bg_color)
         # display player
-        self.ship.blitme()
+        self.ship.blit_ship()
         # update all screen
         pygame.display.flip()
 
     def run_game(self):
         while True:
             self.events()
-            self.update()
+            self.ship.update_movement()
+            print(self.ship.rect.x)
+            self.update_screen()
 
 
 if __name__ == '__main__':
