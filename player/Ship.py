@@ -35,3 +35,14 @@ class Ship:
             self.x -= self.ship_speed
 
         self.rect.x = self.x
+
+    def move(self, event):
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT:
+                # move ship right
+                self.move_right = True
+            elif event.key == pygame.K_LEFT:
+                self.move_left = True
+        else:
+            self.move_right = False
+            self.move_left = False

@@ -11,7 +11,7 @@ class AlienInvasion:
         # initialize and create game resource
         pygame.init()
 
-        self.settings = Settings()
+        self.settings = Settings(self)
         """
         set the screen for display
         set_mode create window
@@ -24,22 +24,13 @@ class AlienInvasion:
         # initialize player ship
         self.ship = Ship(self, self.settings)
 
-    def events(self):
+    def control(self):
         # keyboard and mouse event
         for event in pygame.event.get():
             # close the game
             if event.type == pygame.QUIT:
                 sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
-                    # move ship right
-                    self.ship.move_right = True
-                elif event.key == pygame.K_LEFT:
-                    self.ship.move_left = True
-            else:
-                self.ship.move_right = False
-                self.ship.move_left = False
-
+            self.ship.move(event)
 
     def update_screen(self):
         self.screen.fill(self.settings.bg_color)
@@ -50,9 +41,8 @@ class AlienInvasion:
 
     def run_game(self):
         while True:
-            self.events()
+            self.control()
             self.ship.update_movement()
-            print(self.ship.rect.x)
             self.update_screen()
 
 

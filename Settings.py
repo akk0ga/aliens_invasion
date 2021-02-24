@@ -1,6 +1,12 @@
+import pygame
+import sys
+
+from player.Ship import Ship
+
+
 class Settings:
 
-    def __init__(self):
+    def __init__(self, game):
         self.screen_width = 800
         self.screen_height = 600
         self.bg_color = (222, 219, 210)
