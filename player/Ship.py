@@ -1,4 +1,5 @@
 import pygame
+from aliens_invasion.player.Bullet import Bullet
 
 
 class Ship:
@@ -23,6 +24,8 @@ class Ship:
 
         self.x = float(self.rect.x)
 
+        self.bullets = pygame.sprite.Group()
+
     def blit_ship(self):
         # draw the ship at its current location
         self.screen.blit(self.image, self.rect)
@@ -46,3 +49,12 @@ class Ship:
         else:
             self.move_right = False
             self.move_left = False
+
+    def attack(self, event, game):
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                self.shoot_bullet(game)
+
+    def shoot_bullet(self, game):
+        new_bullet = Bullet(game)
+        self.bullets.add(new_bullet)

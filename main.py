@@ -21,7 +21,7 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption('Aliens Invasion')
 
-        # initialize player ship
+        # initialize player
         self.ship = Ship(self, self.settings)
 
     def control(self):
@@ -31,11 +31,15 @@ class AlienInvasion:
             if event.type == pygame.QUIT:
                 sys.exit()
             self.ship.move(event)
+            self.ship.attack(event, self)
 
     def update_screen(self):
         self.screen.fill(self.settings.bg_color)
         # display player
         self.ship.blit_ship()
+        # update bullets
+        for bullet in self.ship.bullets.sprites():
+            bullet.display()
         # update all screen
         pygame.display.flip()
 
@@ -43,6 +47,7 @@ class AlienInvasion:
         while True:
             self.control()
             self.ship.update_movement()
+            self.ship.bullets.update()
             self.update_screen()
 
 
