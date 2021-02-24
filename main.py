@@ -3,6 +3,7 @@ import pygame
 
 from Settings import Settings
 from player.Ship import Ship
+from aliens_invasion.player.Bullet import Bullet
 
 
 class AlienInvasion:
@@ -23,6 +24,8 @@ class AlienInvasion:
 
         # initialize player
         self.ship = Ship(self, self.settings)
+        self.bullets = pygame.sprite.Group()
+
 
     def control(self):
         # keyboard and mouse event
