@@ -6,6 +6,7 @@ class Ship:
 
     def __init__(self, game, settings):
         self.settings = settings
+
         # initialize ship and set start position
         self.screen = game.screen
         self.screen_rect = game.screen.get_rect()
