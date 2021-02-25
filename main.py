@@ -62,7 +62,6 @@ class AlienInvasion:
             self.control()
             self.ship.update_movement()
             self.ship.bullets.update()
-            print(self.ennemies.group)
             self.update_screen()
 
 
