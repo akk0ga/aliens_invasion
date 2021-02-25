@@ -52,7 +52,7 @@ class Ship:
 
     def attack(self, event, game):
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_SPACE and len(self.bullets) != Bullet(game).bullet_max:
                 self.shoot_bullet(game)
 
     def shoot_bullet(self, game):
