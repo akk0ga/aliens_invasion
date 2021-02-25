@@ -42,6 +42,10 @@ class AlienInvasion:
         self.screen.fill(self.settings.bg_color)
         # display player
         self.ship.blit_ship()
+
+        # ennemy
+        self.ennemies.group.draw(self.screen)
+
         # update bullets
         for bullet in self.ship.bullets.sprites():
             bullet.display()
@@ -50,9 +54,6 @@ class AlienInvasion:
         for bullet in self.ship.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.ship.bullets.remove(bullet)
-
-        # ennemy
-        self.ennemies.group.draw(self.screen)
 
         # update all screen
         pygame.display.flip()
