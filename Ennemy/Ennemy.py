@@ -1,21 +1,22 @@
 import pygame
-import random
-from pygame.sprite import  Sprite
+from pygame.sprite import Sprite
 
 
 class Ennemy(Sprite):
 
     def __init__(self, game):
         super().__init__()
-        self.ennemy = pygame.image.load(f'assets/{self.ennemy_choice()}.bmp')
-        self.ennemy_rect = self.ennemy.get_rect()
-        
+        self.screen = game.screen
 
-    def ennemy_choice(self):
-        ennemy_list = {
-            1: 'weak',
-            2: 'medium',
-            3: 'strong'
-        }
-        ennemy = random.randint(1, 3)
-        return ennemy_list[ennemy]
+        self.image = pygame.image.load('assets/ennemy/weak.bmp')
+        self.rect = self.image.get_rect()
+        self.group = pygame.sprite.Group()
+
+        self.rect.x = self.rect.width
+        self.rect.y = self.rect.height
+
+        self.x = float(self.rect.x)
+
+    def create(self, game):
+        ennemy = Ennemy(game)
+        self.group.add(ennemy)

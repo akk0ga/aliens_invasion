@@ -3,7 +3,7 @@ import pygame
 
 from Settings import Settings
 from player.Ship import Ship
-from aliens_invasion.player.Bullet import Bullet
+from aliens_invasion.ennemy.Ennemy import Ennemy
 
 
 class AlienInvasion:
@@ -24,6 +24,10 @@ class AlienInvasion:
 
         # initialize player
         self.ship = Ship(self, self.settings)
+
+        # initialize ennemy
+        self.ennemies = Ennemy(self)
+        self.ennemies.create(self)
 
     def control(self):
         # keyboard and mouse event
@@ -47,6 +51,9 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.ship.bullets.remove(bullet)
 
+        # ennemy
+        self.ennemies.group.draw(self.screen)
+
         # update all screen
         pygame.display.flip()
 
@@ -55,6 +62,7 @@ class AlienInvasion:
             self.control()
             self.ship.update_movement()
             self.ship.bullets.update()
+            print(self.ennemies.group)
             self.update_screen()
 
 
