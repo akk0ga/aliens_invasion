@@ -18,7 +18,7 @@ class Ennemy(Sprite):
     def create(self, game):
         max_ennemies = (game.settings.screen_width - (2 * self.rect.width)) // (2 * self.rect.width)
         print(max_ennemies)
-        for i in range(max_ennemies):
+        for i in range(max_ennemies+1):
             ennemy = Ennemy(game)
             ennemy.x = ennemy.rect.width + 2 * ennemy.rect.width * i
             ennemy.rect.x = ennemy.x
