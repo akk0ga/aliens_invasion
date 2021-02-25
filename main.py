@@ -24,8 +24,6 @@ class AlienInvasion:
 
         # initialize player
         self.ship = Ship(self, self.settings)
-        self.bullets = pygame.sprite.Group()
-
 
     def control(self):
         # keyboard and mouse event
@@ -43,6 +41,12 @@ class AlienInvasion:
         # update bullets
         for bullet in self.ship.bullets.sprites():
             bullet.display()
+
+        # .copy() copy the original because for loop has to get the same lenght during all the loop
+        for bullet in self.ship.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.ship.bullets.remove(bullet)
+
         # update all screen
         pygame.display.flip()
 
@@ -51,6 +55,7 @@ class AlienInvasion:
             self.control()
             self.ship.update_movement()
             self.ship.bullets.update()
+            print(self.ship.bullets)
             self.update_screen()
 
 
