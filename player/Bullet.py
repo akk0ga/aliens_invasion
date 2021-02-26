@@ -10,7 +10,7 @@ class Bullet(Sprite):
         self.bullet_height = 15
         self.bullet_speed = 0.2
         self.bullet_color = (60, 60, 60)
-        self.bullet_max = 3
+        self.bullet_max = 5
 
         self.screen = game.screen
         self.settings = game.settings

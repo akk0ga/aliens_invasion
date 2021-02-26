@@ -26,8 +26,27 @@ class AlienInvasion:
         self.ship = Ship(self, self.settings)
 
         # initialize ennemy
-        self.ennemies = Ennemy(self)
-        self.ennemies.create(self)
+        self.ennemies = pygame.sprite.Group()
+        self.create_ennemy()
+
+    def create_fleet(self):
+        ennemy = Ennemy(self)
+        ennemy_width, ennemy_height = ennemy.rect.size
+
+        available_space_x = self.settings.screen_width - (2 * ennemy_width)
+        total_lines = available_space_x // (2 * ennemy_width)
+
+    def create_ennemy(self):
+        ennemy = Ennemy(self)
+        ennemy_width = ennemy.rect.width
+
+        available_space_x = self.settings.screen_width - (2 * ennemy_width)
+        total_lines = available_space_x // (2 * ennemy_width)
+
+        for line in range(total_lines):
+            ennemy = Ennemy(self)
+            ennemy.rect.x = ennemy_width + 2 * ennemy_width * line
+            self.ennemies.add(ennemy)
 
     def control(self):
         # keyboard and mouse event
@@ -44,7 +63,7 @@ class AlienInvasion:
         self.ship.blit_ship()
 
         # ennemy
-        self.ennemies.group.draw(self.screen)
+        self.ennemies.draw(self.screen)
 
         # update bullets
         for bullet in self.ship.bullets.sprites():
@@ -63,6 +82,7 @@ class AlienInvasion:
             self.control()
             self.ship.update_movement()
             self.ship.bullets.update()
+            self.ennemies.update()
             self.update_screen()
 
 
