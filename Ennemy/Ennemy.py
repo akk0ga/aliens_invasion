@@ -19,3 +19,7 @@ class Ennemy(Sprite):
     def choose_ennemy(self):
         image = ('weak', 'medium', 'strong')
         return image[randint(0, 2)]
+
+    def update(self):
+        self.x += self.speed
+        self.rect.x += self.x

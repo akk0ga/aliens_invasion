@@ -52,6 +52,9 @@ class AlienInvasion:
 
         self.ennemies.add(ennemy)
 
+    def _update_ennemy(self):
+        self.ennemies.update()
+
     def _control(self):
         # keyboard and mouse event
         for event in pygame.event.get():
@@ -86,7 +89,7 @@ class AlienInvasion:
             self._control()
             self.ship.update_movement()
             self.ship.bullets.update()
-            self.ennemies.update()
+            self._update_ennemy()
             self._update_screen()
 
 

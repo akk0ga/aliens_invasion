@@ -54,7 +54,7 @@ class Ship:
     def attack(self, event, game):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and len(self.bullets) != Bullet(game).bullet_max:
-                pygame.mixer.music.load('assets/sound/player_shoot.wav')
+                pygame.mixer.music.load('assets/sound/effect/player_shoot.wav')
                 pygame.mixer.music.play()
                 self.shoot_bullet(game)
 
