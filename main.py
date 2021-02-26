@@ -27,28 +27,32 @@ class AlienInvasion:
 
         # initialize ennemy
         self.ennemies = pygame.sprite.Group()
-        self.create_ennemy()
+        self._create_fleet()
 
-    def create_fleet(self):
+    def _create_fleet(self):
         ennemy = Ennemy(self)
         ennemy_width, ennemy_height = ennemy.rect.size
 
-        available_space_x = self.settings.screen_width - (2 * ennemy_width)
+        available_space_x = self.settings.screen_width - (2 * ennemy_width) - self.ship.rect.height
         total_lines = available_space_x // (2 * ennemy_width)
 
-    def create_ennemy(self):
+        available_space_y = self.settings.screen_height - (3 * ennemy_height)
+        total_rows = available_space_y // (2 * ennemy_height)
+
+        for row in range(total_rows):
+            for line in range(total_lines):
+                self._create_ennemy(line, row)
+
+    def _create_ennemy(self, line, row):
         ennemy = Ennemy(self)
         ennemy_width = ennemy.rect.width
 
-        available_space_x = self.settings.screen_width - (2 * ennemy_width)
-        total_lines = available_space_x // (2 * ennemy_width)
+        ennemy.rect.x = ennemy_width + 2 * ennemy_width * line
+        ennemy.rect.y = ennemy.rect.height + 2 * ennemy.rect.height * row
 
-        for line in range(total_lines):
-            ennemy = Ennemy(self)
-            ennemy.rect.x = ennemy_width + 2 * ennemy_width * line
-            self.ennemies.add(ennemy)
+        self.ennemies.add(ennemy)
 
-    def control(self):
+    def _control(self):
         # keyboard and mouse event
         for event in pygame.event.get():
             # close the game
@@ -57,7 +61,7 @@ class AlienInvasion:
             self.ship.move(event)
             self.ship.attack(event, self)
 
-    def update_screen(self):
+    def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
         # display player
         self.ship.blit_ship()
@@ -77,16 +81,16 @@ class AlienInvasion:
         # update all screen
         pygame.display.flip()
 
-    def run_game(self):
+    def _run_game(self):
         while True:
-            self.control()
+            self._control()
             self.ship.update_movement()
             self.ship.bullets.update()
             self.ennemies.update()
-            self.update_screen()
+            self._update_screen()
 
 
 if __name__ == '__main__':
     # launch game
     game = AlienInvasion()
-    game.run_game()
+    game._run_game()
