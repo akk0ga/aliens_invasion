@@ -10,3 +10,4 @@ class Settings:
         self.screen_width = 800
         self.screen_height = 600
         self.bg_color = (222, 219, 210)
+        self.enemy_direction = 1

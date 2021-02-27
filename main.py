@@ -52,8 +52,6 @@ class AlienInvasion:
 
         self.ennemies.add(ennemy)
 
-    def _update_ennemy(self):
-        self.ennemies.update()
 
     def _control(self):
         # keyboard and mouse event
@@ -81,6 +79,13 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.ship.bullets.remove(bullet)
 
+        # update enemies direction
+        for enemy in self.ennemies.sprites():
+            if enemy.rect.right == self.screen.get_rect().right:
+                self.settings.enemy_direction = -1
+            elif enemy.rect.left == self.screen.get_rect().left:
+                self.settings.enemy_direction = 1
+
         # update all screen
         pygame.display.flip()
 
@@ -90,9 +95,9 @@ class AlienInvasion:
             self._control()
             self.ship.update_movement()
             self.ship.bullets.update()
-            self._update_ennemy()
+            self.ennemies.update(self)
             self._update_screen()
-            clock.tick(120)
+            clock.tick(110)
 
 
 if __name__ == '__main__':
