@@ -21,7 +21,7 @@ class Ship:
         # movement flag for continuous movement
         self.move_right = False
         self.move_left = False
-        self.ship_speed = 0.3
+        self.ship_speed = 20.0
 
         self.x = float(self.rect.x)
 
