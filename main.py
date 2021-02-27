@@ -92,19 +92,7 @@ class AlienInvasion:
             self.ship.bullets.update()
             self._update_ennemy()
             self._update_screen()
-            clock.tick(30)
-
-    """
-    def _run_game(self):
-        clock = pygame.time.Clock()
-        while True:
-            self._control()
-            self.ship.update_movement()
-            self.ship.bullets.update()
-            self._update_ennemy()
-            self._update_screen()
-            clock.tick(30)
-    """
+            clock.tick(120)
 
 
 if __name__ == '__main__':

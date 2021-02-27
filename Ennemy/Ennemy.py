@@ -21,6 +21,6 @@ class Ennemy(Sprite):
         return image[randint(0, 2)]
 
     def update(self):
-        self.x = self.speed
+        self.x = 0
         self.x += self.speed
         self.rect.x += self.x
