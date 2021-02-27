@@ -10,7 +10,7 @@ class Ennemy(Sprite):
         self.image = pygame.image.load(f'assets/ennemy/{self._choose_ennemy()}.bmp')
         self.rect = self.image.get_rect()
         self.screen = game.screen.get_rect()
-        self.speed = 1
+        self.speed = 1.0
 
         self.rect.x = self.rect.width
         self.rect.y = self.rect.height

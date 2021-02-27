@@ -11,3 +11,4 @@ class Settings:
         self.screen_height = 600
         self.bg_color = (222, 219, 210)
         self.enemy_direction = 1
+        self.game_active = True

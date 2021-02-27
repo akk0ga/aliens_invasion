@@ -1,7 +1,7 @@
 import sys
 import pygame
 
-from Settings import Settings
+from aliens_invasion.settings.Settings import Settings
 from player.Ship import Ship
 from aliens_invasion.ennemy.Ennemy import Ennemy
 
@@ -52,15 +52,15 @@ class AlienInvasion:
 
         self.ennemies.add(ennemy)
 
-
     def _control(self):
         # keyboard and mouse event
         for event in pygame.event.get():
             # close the game
             if event.type == pygame.QUIT:
                 sys.exit()
-            self.ship.move(event)
-            self.ship.attack(event, self)
+            if self.ennemies:
+                self.ship.move(event)
+                self.ship.attack(event, self)
 
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
@@ -94,10 +94,14 @@ class AlienInvasion:
         clock = pygame.time.Clock()
         while True:
             self._control()
-            self.ship.update_movement()
-            self.ship.bullets.update()
-            # self.ennemies.update(self)
             self._update_screen()
+            if self.settings.game_active:
+                #self.ennemies.update(self)
+                self.ship.bullets.update()
+                self.ship.update_movement()
+                if not self.ennemies:
+                    self.settings.game_active = False
+                    self.ship.rect.midbottom = self.screen.get_rect().midbottom
             clock.tick(110)
 
 
