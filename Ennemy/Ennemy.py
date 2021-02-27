@@ -11,8 +11,6 @@ class Ennemy(Sprite):
         self.rect = self.image.get_rect()
         self.screen = game.screen.get_rect()
         self.speed = 1
-        # 1 go right -1 go left
-        self.redirect = 1
 
         self.rect.x = self.rect.width
         self.rect.y = self.rect.height

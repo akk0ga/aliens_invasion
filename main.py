@@ -75,8 +75,9 @@ class AlienInvasion:
             bullet.display()
 
         # .copy() copy the original because for loop has to get the same lenght during all the loop
+        # group collide delete sprite ennemy and bullet
         for bullet in self.ship.bullets.copy():
-            if bullet.rect.bottom <= 0:
+            if bullet.rect.bottom <= 0 or pygame.sprite.groupcollide(self.ship.bullets, self.ennemies, True, True):
                 self.ship.bullets.remove(bullet)
 
         # update enemies direction
@@ -95,7 +96,7 @@ class AlienInvasion:
             self._control()
             self.ship.update_movement()
             self.ship.bullets.update()
-            self.ennemies.update(self)
+            # self.ennemies.update(self)
             self._update_screen()
             clock.tick(110)
 
