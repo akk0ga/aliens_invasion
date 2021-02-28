@@ -4,6 +4,7 @@ import pygame
 from aliens_invasion.settings.Settings import Settings
 from player.Ship import Ship
 from aliens_invasion.ennemy.Ennemy import Ennemy
+from aliens_invasion.ennemy.Fleet import Fleet
 
 
 class AlienInvasion:
@@ -12,7 +13,7 @@ class AlienInvasion:
         # initialize and create game resource
         pygame.init()
 
-        self.settings = Settings(self)
+        self.settings = Settings()
         """
         set the screen for display
         set_mode create window
@@ -26,31 +27,9 @@ class AlienInvasion:
         self.ship = Ship(self, self.settings)
 
         # initialize ennemy
-        self.ennemies = pygame.sprite.Group()
-        self._create_fleet()
-
-    def _create_fleet(self):
-        ennemy = Ennemy(self)
-        ennemy_width, ennemy_height = ennemy.rect.size
-
-        available_space_x = self.settings.screen_width - (2 * ennemy_width) - self.ship.rect.height
-        total_lines = available_space_x // (2 * ennemy_width)
-
-        available_space_y = self.settings.screen_height - (3 * ennemy_height)
-        total_rows = available_space_y // (2 * ennemy_height)
-
-        for row in range(total_rows):
-            for line in range(total_lines):
-                self._create_ennemy(line, row)
-
-    def _create_ennemy(self, line, row):
-        ennemy = Ennemy(self)
-        ennemy_width = ennemy.rect.width
-
-        ennemy.rect.x = ennemy_width + 2 * ennemy_width * line
-        ennemy.rect.y = ennemy.rect.height + 2 * ennemy.rect.height * row
-
-        self.ennemies.add(ennemy)
+        self.fleet = Fleet()
+        self.enemies = self.fleet.enemies
+        self.fleet.create_fleet(self)
 
     def _control(self):
         # keyboard and mouse event
@@ -58,7 +37,7 @@ class AlienInvasion:
             # close the game
             if event.type == pygame.QUIT:
                 sys.exit()
-            if self.ennemies:
+            if self.enemies:
                 self.ship.move(event)
                 self.ship.attack(event, self)
 
@@ -68,7 +47,7 @@ class AlienInvasion:
         self.ship.blit_ship()
 
         # ennemy
-        self.ennemies.draw(self.screen)
+        self.enemies.draw(self.screen)
 
         # update bullets
         for bullet in self.ship.bullets.sprites():
@@ -77,11 +56,11 @@ class AlienInvasion:
         # .copy() copy the original because for loop has to get the same lenght during all the loop
         # group collide delete sprite ennemy and bullet
         for bullet in self.ship.bullets.copy():
-            if bullet.rect.bottom <= 0 or pygame.sprite.groupcollide(self.ship.bullets, self.ennemies, True, True):
+            if bullet.rect.bottom <= 0 or pygame.sprite.groupcollide(self.ship.bullets, self.enemies, True, True):
                 self.ship.bullets.remove(bullet)
 
         # update enemies direction
-        for enemy in self.ennemies.sprites():
+        for enemy in self.enemies.sprites():
             if enemy.rect.right == self.screen.get_rect().right:
                 self.settings.enemy_direction = -1
             elif enemy.rect.left == self.screen.get_rect().left:
@@ -96,10 +75,10 @@ class AlienInvasion:
             self._control()
             self._update_screen()
             if self.settings.game_active:
-                #self.ennemies.update(self)
+                self.enemies.update(self)
                 self.ship.bullets.update()
                 self.ship.update_movement()
-                if not self.ennemies:
+                if not self.enemies:
                     self.settings.game_active = False
                     self.ship.rect.midbottom = self.screen.get_rect().midbottom
             clock.tick(110)
