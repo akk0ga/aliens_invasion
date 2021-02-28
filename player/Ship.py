@@ -23,10 +23,9 @@ class Ship(Sprite):
         # movement flag for continuous movement
         self.move_right = False
         self.move_left = False
-        self.ship_speed = 7.0
+        self.ship_speed = 5.0
 
         self.x = float(self.rect.x)
-        self.y = float(self.rect.y)
 
         self.bullets = pygame.sprite.Group()
         self.ship = pygame.sprite.Sprite()

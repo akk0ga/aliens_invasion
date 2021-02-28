@@ -30,5 +30,4 @@ class Fleet(Sprite):
 
         enemy.rect.x = enemy_width + 2 * enemy_width * line
         enemy.rect.y = enemy.rect.height + 2 * enemy.rect.height * row
-
         self.enemies.add(enemy)
