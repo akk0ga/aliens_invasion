@@ -12,8 +12,8 @@ class AlienInvasion:
     def __init__(self):
         # initialize and create game resource
         pygame.init()
-
         self.settings = Settings()
+
         """
         set the screen for display
         set_mode create window
@@ -42,7 +42,7 @@ class AlienInvasion:
                 self.ship.attack(event, self)
 
     def _update_screen(self):
-        self.screen.fill(self.settings.bg_color)
+        self.screen.blit(self.settings.background, (0, 0))
         # display player
         self.ship.blit_ship()
 

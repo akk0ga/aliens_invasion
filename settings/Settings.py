@@ -1,7 +1,4 @@
 import pygame
-import sys
-
-from player.Ship import Ship
 
 
 class Settings:
@@ -12,3 +9,4 @@ class Settings:
         self.bg_color = (222, 219, 210)
         self.enemy_direction = 1
         self.game_active = True
+        self.background = pygame.image.load('assets/background.bmp')
