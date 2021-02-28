@@ -3,7 +3,6 @@ import pygame
 
 from aliens_invasion.settings.Settings import Settings
 from player.Ship import Ship
-from aliens_invasion.ennemy.Ennemy import Ennemy
 from aliens_invasion.ennemy.Fleet import Fleet
 
 
