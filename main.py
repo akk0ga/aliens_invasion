@@ -69,15 +69,19 @@ class AlienInvasion:
         pygame.display.flip()
 
     def _run_game(self):
+        pygame.mixer.music.play(-1)
         clock = pygame.time.Clock()
         while True:
             self._control()
             self._update_screen()
             if self.settings.game_active:
-                self.enemies.update(self)
+                # self.enemies.update(self)
                 self.ship.bullets.update()
                 self.ship.update_movement()
                 if not self.enemies:
+                    pygame.mixer.music.stop()
+                    pygame.mixer.music.load('assets/sound/bg/Victory.wav')
+                    pygame.mixer.music.play()
                     self.settings.game_active = False
                     self.ship.rect.midbottom = self.screen.get_rect().midbottom
             clock.tick(110)

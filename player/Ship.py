@@ -1,10 +1,12 @@
 import pygame
 from aliens_invasion.player.Bullet import Bullet
+from pygame.sprite import Sprite
 
 
-class Ship:
+class Ship(Sprite):
 
     def __init__(self, game, settings):
+        super().__init__()
         self.settings = settings
 
         # initialize ship and set start position
@@ -24,8 +26,10 @@ class Ship:
         self.ship_speed = 7.0
 
         self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
 
         self.bullets = pygame.sprite.Group()
+        self.ship = pygame.sprite.Sprite()
 
     def blit_ship(self):
         # draw the ship at its current location
@@ -54,8 +58,7 @@ class Ship:
     def attack(self, event, game):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and len(self.bullets) != Bullet(game).bullet_max:
-                pygame.mixer.music.load('assets/sound/effect/player_shoot.wav')
-                pygame.mixer.music.play()
+                self.settings.ship_shoot_sound.play()
                 self.shoot_bullet(game)
 
     def shoot_bullet(self, game):
